@@ -6,11 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: '127.0.0.1',
+    host: '0.0.0.0',
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'https://test-deploy-ci.onrender.com',
         secure: false,
         changeOrigin: true,
       },

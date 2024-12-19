@@ -2,7 +2,7 @@ import db from '../config/connection.js';
 import { Word } from '../models/index.js';
 import cleanDB from './cleanDB.js';
 
-import wordData from './wordSeeds.json' assert { type: 'json' };
+import wordData from './wordSeeds.json' with { type: 'json' };
 
 try {
   await db();
