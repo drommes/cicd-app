@@ -1,13 +1,25 @@
 version: 2.1
+# Make sure to add MONGODB_URI to ENVIRONMENT VARIABLES in CircleCI so that the tests can connect to the database
+orbs:
+  cypress: cypress-io/cypress@3.3.1
 
 jobs:
-  hello-world-job:
+  start-server:
     docker:
-      - image: cimg/base:current
+      - image: cypress/base:late
     steps:
-      - run: echo "Hello, World!"
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Build the app
+          command: npm run build
 
 workflows:
-  hello-world-workflow:
+  run-tests:
     jobs:
-      - hello-world-job
+      - start-server
+      - cypress/run:
+          name: run-component-tests
+          cypress-command: npx cypress run --component
