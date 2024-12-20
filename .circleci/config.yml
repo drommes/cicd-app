@@ -6,7 +6,7 @@ orbs:
 jobs:
   start-server:
     docker:
-      - image: cypress/base:late
+      - image: cypress/base:latest
     steps:
       - checkout
       - run:
