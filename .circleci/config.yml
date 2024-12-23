@@ -35,10 +35,9 @@ jobs:
             curl $RENDER_PRODUCTION_DEPLOYHOOK
 
 workflows:
-  run-tests-and-deploy-to-staging-hold-then-production:
+  run-tests-and-deploy-to-staging-then-production:
     jobs:
       - start-server
-        # Make sure to add MONGODB_URI to ENVIRONMENT VARIABLES in CircleCI so that the tests can connect to the database
       - cypress/run:
           name: run-component-tests
           cypress-command: npx cypress run --component
@@ -48,13 +47,9 @@ workflows:
           filters:
             branches:
               only: main
-      - hold:
-          type: approval
-          requires:
-            - deploy-to-render-staging
       - deploy-to-render-production:
           requires:
-            - hold
+            - deploy-to-render-staging
           filters:
             branches:
               only: main
